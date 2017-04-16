@@ -22,17 +22,12 @@ $signature = base64_encode($hash);
 if ($_SERVER['HTTP_X_LINE_SIGNATURE'] !== $signature) {
     $log->error('X-Line-Signature does not match'); exit;
 }
-// Webhook event objects
-$events_json = filter_input(INPUT_POST, 'events');
-$events = json_decode($events_json);
-if (!$events) {
-    $log->error('POST:events is not found');
-    exit;
-}
+$request = json_decode($httpRequestBody);
 // bot client
 $httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
 
-foreach ($events as $event) {
+foreach ($request->events as $event) {
+    // $event == Webhook event objects https://devdocs.line.me/ja/#webhook-event-object
     $log->debug("$event->timestamp $event->type");
 }
