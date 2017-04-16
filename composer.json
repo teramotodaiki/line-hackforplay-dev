@@ -1,0 +1,12 @@
+{
+    "name": "teramotodaiki/line-hackforplay-dev",
+    "description": "Development line bot",
+    "license": "MIT",
+    "authors": [
+        {
+            "name": "teramotodaiki",
+            "email": "i101323@gmail.com"
+        }
+    ],
+    "require": {}
+}
