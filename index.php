@@ -21,10 +21,10 @@ $signature = base64_encode($hash);
 if (!$signature) {
     $log->error('Invalid signature'); exit;
 }
-if (!isset($_SERVER['HTTP_X_Line_Signature'])) {
+if (!isset($_SERVER['HTTP_X_LINE_SIGNATURE'])) {
     $log->error('X-Line-Signature is not found'); exit;
 }
-if ($_SERVER['HTTP_X_Line_Signature'] !== $signature) {
+if ($_SERVER['HTTP_X_LINE_SIGNATURE'] !== $signature) {
     $log->error('X-Line-Signature does not match'); exit;
 }
 // Webhook event objects
