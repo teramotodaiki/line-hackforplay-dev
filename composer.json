@@ -8,5 +8,9 @@
             "email": "i101323@gmail.com"
         }
     ],
-    "require": {}
+    "require": {
+        "linecorp/line-bot-sdk": "^1.5",
+        "vlucas/phpdotenv": "^2.4",
+        "monolog/monolog": "^1.22"
+    }
 }
