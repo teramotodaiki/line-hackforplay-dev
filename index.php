@@ -1,6 +1,5 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
-$log->debug('start');
 
 // .env
 
@@ -12,6 +11,7 @@ $dotenv->load();
 $log = new \Monolog\Logger('Webhook');
 $handler = new \Monolog\Handler\StreamHandler('./app.log', \Monolog\Logger::DEBUG);
 $log->pushHandler($handler);
+$log->debug('start');
 
 // Webhook by LINE SDK
 
