@@ -33,10 +33,10 @@ foreach ($request->events as $event) {
         $log->debug("{$event->timestamp} {$event->type} {$event->message->type}");
         if ($event->message->type === 'text') {
             // Reply message
-            $log->debug("{$event->message->id} {$event->message->text}");
+            $log->debug("{$event->message->id} {$event->message->text} {$event->replyToken}");
             // $reply = "すごーい！きみは{$event->message->text}のフレンズなんだね！";
-            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
-            $response = $bot->replyMessage($event->replyToken, $textMessageBuilder);
+            // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
+            $response = $bot->replyText($event->replyToken, 'hello');
             $log->info("{$response->getHTTPStatus()} {$response->getRawBody()}");
         }
     }
