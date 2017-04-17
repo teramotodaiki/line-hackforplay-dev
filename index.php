@@ -39,7 +39,7 @@ foreach ($request->events as $event) {
                 $response = $bot->replyText($event->replyToken, 'hello');
                 $log->info("{$response->getHTTPStatus()} {$response->getRawBody()}");
             } catch (Exception $e) {
-                $log->error($e->message);
+                $log->error($e->getMessage());
             }
             $log->debug('end');
         }
