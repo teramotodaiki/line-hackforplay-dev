@@ -22,11 +22,11 @@ try {
         // $event <Webhook event objects> has a message
         // See: https://devdocs.line.me/ja/#webhook-event-object
         foreach ($events as $event) {
-            if (!($event instanceof \LINE\LINEBot\EventMessageEvent)) {
+            if (!($event instanceof \LINE\LINEBot\Event\MessageEvent)) {
                 $log->alert('Non message event has come');
                 continue;
             }
-            if (!($event instanceof \LINE\LINEBot\EventMessageEvent\TextMessage)) {
+            if (!($event instanceof \LINE\LINEBot\Event\MessageEvent\TextMessage)) {
                 $log->alert('Non text message has come');
                 continue;
             }
