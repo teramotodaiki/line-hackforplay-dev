@@ -6,7 +6,6 @@ require __DIR__ . '/vendor/autoload.php';
 $log = new \Monolog\Logger('Webhook');
 $handler = new \Monolog\Handler\SlackWebhookHandler( getenv('SLACK_WEBHOOK_URL') );
 $log->pushHandler($handler);
-$log->alert('test');
 
 // Webhook by LINE SDK
 
@@ -28,8 +27,13 @@ foreach ($request->events as $event) {
     if ($event->type === 'message') {
         if ($event->message->type === 'text') {
             // Reply message
-            $text = strrev($event->message->text); // Reversed text of input
+            $text = utf8_strrev($event->message->text); // Reversed text of input
             $response = $bot->replyText($event->replyToken, $text);
         }
     }
+}
+
+function utf8_strrev($str){
+    preg_match_all('/./us', $str, $ar);
+    return join('', array_reverse($ar[0]));
 }
