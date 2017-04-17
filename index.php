@@ -6,17 +6,20 @@ require __DIR__ . '/vendor/autoload.php';
 $log = new \Monolog\Logger('Webhook');
 $handler = new \Monolog\Handler\SlackWebhookHandler( getenv('SLACK_WEBHOOK_URL') );
 $log->pushHandler($handler);
+$log->alert('1');
 
 // Webhook by LINE SDK
-$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient(getenv('CHANNEL_ACCESS_TOKEN'));
+$httpClient = new \LINE\LINEBot\HTTPClient\CurlHTTPClient( getenv('CHANNEL_ACCESS_TOKEN') );
 $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET')]);
 $signature = $_SERVER['HTTP_X_LINE_SIGNATURE']; // X-Line-Signature in header
 $httpRequestBody = file_get_contents('php://input'); // Request body string
+$log->alert('2');
 
 try {
     // Compare X-Line-Signature request header string and the signature
     // Success then parse request body
     $events = $bot->parseEventRequest($httpRequestBody, $signature);
+    $log->alert('3');
 
     foreach ($events as $event) {
         // $event <Webhook event objects> has a message
@@ -29,8 +32,10 @@ try {
             }
         }
     }
+    $log->alert('4');
 
 } catch (Exception $e) {
+    $log->alert('e');
     // An error was occured, see details in Slack channel!
     $log->alert('😵', [
         'message' => $e->getMessage(),
