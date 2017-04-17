@@ -41,6 +41,7 @@ foreach ($request->events as $event) {
             } catch (Exception $e) {
                 $log->error($e->message);
             }
+            $log->debug('end');
         }
     }
 }
