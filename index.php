@@ -23,12 +23,12 @@ try {
         // $event <Webhook event objects> has a message
         // See: https://devdocs.line.me/ja/#webhook-event-object
         foreach ($events as $event) {
-            if (!($event instanceof MessageEvent)) {
-                $logger->info('Non message event has come');
+            if (!($event instanceof \LINE\LINEBot\EventMessageEvent)) {
+                $log->error('Non message event has come');
                 continue;
             }
-            if (!($event instanceof TextMessage)) {
-                $logger->info('Non text message has come');
+            if (!($event instanceof \LINE\LINEBot\EventMessageEvent\TextMessage)) {
+                $log->error('Non text message has come');
                 continue;
             }
             $replyText = utf8_strrev( $event->getText() ); // Reversed text of input
