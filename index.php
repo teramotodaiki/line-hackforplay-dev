@@ -1,17 +1,12 @@
 <?php
 require __DIR__ . '/vendor/autoload.php';
 
-// .env
-
-// $dotenv = new \Dotenv\Dotenv(__DIR__);
-// $dotenv->load();
-
 // Mongolog
 
 $log = new \Monolog\Logger('Webhook');
-$handler = new \Monolog\Handler\SlackbotHandler('hackforplay', getenv('SLACK_BOT_ACCESS_TOKEN'), 'C4Z7BNRFA', \Monolog\Logger::DEBUG);
+$handler = new \Monolog\Handler\SlackWebhookHandler( genenv('SLACK_WEBHOOK_URL') );
 $log->pushHandler($handler);
-$log->debug('start');
+$log->alert('test');
 
 // Webhook by LINE SDK
 
