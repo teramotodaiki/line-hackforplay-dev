@@ -21,12 +21,10 @@ try {
     foreach ($events as $event) {
         // $event <Webhook event objects> has a message
         // See: https://devdocs.line.me/ja/#webhook-event-object
-        $log->alert('event', [
-            'type' => $event->type,
-            'token' => $event->replyToken,
-        ]);
+        $log->alert("$event->type $event->replyToken");
         if ($event->type === 'message') {
             if ($event->message->type === 'text') {
+                $log->alert($event->message->text);
                 // Reply message
                 $text = utf8_strrev($event->message->text); // Reversed text of input
                 $log->alert('text', $text);
