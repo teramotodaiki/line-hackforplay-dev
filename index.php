@@ -16,7 +16,7 @@ $httpRequestBody = file_get_contents('php://input'); // Request body string
 try {
     // Compare X-Line-Signature request header string and the signature
     // Success then parse request body
-    $events = $bot->parseEventRequest($httpRequestBody, $signature);
+    $events = $bot->parseEventRequest(json_decode($httpRequestBody), $signature);
 
     foreach ($events as $event) {
         // $event <Webhook event objects> has a message
