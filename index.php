@@ -4,7 +4,7 @@ require __DIR__ . '/vendor/autoload.php';
 // Mongolog
 
 $log = new \Monolog\Logger('Webhook');
-$handler = new \Monolog\Handler\SlackWebhookHandler( genenv('SLACK_WEBHOOK_URL') );
+$handler = new \Monolog\Handler\SlackWebhookHandler( getenv('SLACK_WEBHOOK_URL') );
 $log->pushHandler($handler);
 $log->alert('test');
 
