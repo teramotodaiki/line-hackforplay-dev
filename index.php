@@ -3,8 +3,8 @@ require __DIR__ . '/vendor/autoload.php';
 
 // .env
 
-$dotenv = new \Dotenv\Dotenv(__DIR__);
-$dotenv->load();
+// $dotenv = new \Dotenv\Dotenv(__DIR__);
+// $dotenv->load();
 
 // Mongolog
 
