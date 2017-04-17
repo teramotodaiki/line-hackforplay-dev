@@ -9,7 +9,7 @@ $dotenv->load();
 // Mongolog
 
 $log = new \Monolog\Logger('Webhook');
-$handler = new \Monolog\Handler\StreamHandler('./app.log', \Monolog\Logger::DEBUG);
+$handler = new \Monolog\Handler\SlackbotHandler('hackforplay', getenv('SLACK_BOT_ACCESS_TOKEN'), 'C4Z7BNRFA', \Monolog\Logger::DEBUG);
 $log->pushHandler($handler);
 $log->debug('start');
 
