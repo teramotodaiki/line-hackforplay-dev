@@ -28,16 +28,8 @@ foreach ($request->events as $event) {
     if ($event->type === 'message') {
         if ($event->message->type === 'text') {
             // Reply message
-            $log->debug("{$event->timestamp} {$event->message->text} {$event->replyToken}");
-            // $reply = "すごーい！きみは{$event->message->text}のフレンズなんだね！";
-            // $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
-            try {
-                $response = $bot->replyText($event->replyToken, 'hello');
-                $log->info("{$response->getHTTPStatus()} {$response->getRawBody()}");
-            } catch (Exception $e) {
-                $log->error($e->getMessage());
-            }
-            $log->debug('end');
+            $text = strrev($event->message->text); // Reversed text of input
+            $response = $bot->replyText($event->replyToken, $text);
         }
     }
 }
