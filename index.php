@@ -16,30 +16,30 @@ $httpRequestBody = file_get_contents('php://input'); // Request body string
 try {
     // Compare X-Line-Signature request header string and the signature
     // Success then parse request body
-    $events = $bot->parseEventRequest(json_decode($httpRequestBody), $signature);
+    $events = $bot->parseEventRequest($httpRequestBody, $signature);
 
     foreach ($events as $event) {
+        $log->alert(gettype($event));
         // $event <Webhook event objects> has a message
         // See: https://devdocs.line.me/ja/#webhook-event-object
-        $log->alert("$event->type $event->replyToken");
-        if ($event->type === 'message') {
-            if ($event->message->type === 'text') {
-                $log->alert($event->message->text);
-                // Reply message
-                $text = utf8_strrev($event->message->text); // Reversed text of input
-                $log->alert('text', $text);
-                $bot->replyText($event->replyToken, $text); // Send reply!
+        foreach ($events as $event) {
+            if (!($event instanceof MessageEvent)) {
+                $logger->info('Non message event has come');
+                continue;
             }
+            if (!($event instanceof TextMessage)) {
+                $logger->info('Non text message has come');
+                continue;
+            }
+            $replyText = utf8_strrev( $event->getText() ); // Reversed text of input
+            $log->alert('text', $text);
+            $bot->replyText($event->getReplyToken(), $replyText); // Send reply!
         }
     }
 
 } catch (Exception $e) {
-    $log->alert('e');
     // An error was occured, see details in Slack channel!
-    $log->alert('😵', [
-        'message' => $e->getMessage(),
-        'request' => $httpRequestBody,
-    ]);
+    $log->alert("😵 {$e->getMessage()} $httpRequestBody");
 
 }
 
