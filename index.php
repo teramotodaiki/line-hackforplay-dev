@@ -29,12 +29,13 @@ $bot = new \LINE\LINEBot($httpClient, ['channelSecret' => getenv('CHANNEL_SECRET
 
 foreach ($request->events as $event) {
     // $event == Webhook event objects https://devdocs.line.me/ja/#webhook-event-object
-    $log->debug("$event->timestamp $event->type");
     if ($event->type === 'message') {
+        $log->debug("{$event->timestamp} {$event->type} {$event->message->type}");
         if ($event->message->type === 'text') {
             // Reply message
-            $reply = "すごーい！きみは{$event->message->text}のフレンズなんだね！";
-            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder($reply);
+            $log->debug("{$event->message->id} {$event->message->text}");
+            // $reply = "すごーい！きみは{$event->message->text}のフレンズなんだね！";
+            $textMessageBuilder = new \LINE\LINEBot\MessageBuilder\TextMessageBuilder('hello');
             $response = $bot->replyMessage($event->replyToken, $textMessageBuilder);
             $log->info("{$response->getHTTPStatus()} {$response->getRawBody()}");
         }
