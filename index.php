@@ -30,9 +30,7 @@ try {
                 $log->alert('Non text message has come');
                 continue;
             }
-            $log->alert( $event->getText() );
             $replyText = utf8_strrev( $event->getText() ); // Reversed text of input
-            $log->alert("text:$text");
             $bot->replyText($event->getReplyToken(), $replyText); // Send reply!
         }
     }
